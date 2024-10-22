@@ -27,7 +27,7 @@ let ClickY = 400;
 let hintText1 = true;
 let hintText2 = false;
 function setup() {
- let canvas = createCanvas(800,500);
+  let canvas = createCanvas(800,500);
   canvas.parent("p5-canvas-container");
   colorMode(RGB, 255, 255, 255, 1);
   for (let iStars = 0; iStars < initialSizeOfArray; iStars++) {
@@ -153,6 +153,9 @@ function draw() {
     if (butterflyX1 > width) {
       butterflyX1 = 0;
       butterflyY1 += 20;
+      if(butterflyY1>height){
+        butterflyY1 = 50
+      }
     }
   }
   //hint
