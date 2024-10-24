@@ -26,7 +26,13 @@ let ClickX = 600;
 let ClickY = 400;
 let hintText1 = true;
 let hintText2 = false;
-let scaleC = 0.3;
+let butterflyX1M = 2;
+let scaleCmode 
+let scaleC 
+let rotateCDegree = 30
+let rotateC
+let rotateCDDegree = 120
+let rotateCD
 function setup() {
   let cnv = createCanvas(800, 500);
   cnv.parent("p5-canvas-container");
@@ -39,7 +45,12 @@ function setup() {
 
 function draw() {
   background(252, 211, 169);
-
+  scaleCmode = cos(frameCount * 0.01);
+  scaleC = map(scaleCmode, -1, 1, 0.3, 1);
+  rotateC=radians(rotateCDegree)
+  rotateCD=radians(rotateCDDegree)
+// let butterflyX1M = 2;
+//     let butterflyY1M = 2 * sin((1 / 2) * frameCount * 0.1);
   noFill();
   strokeWeight(3);
   stroke(255, 232, 209);
@@ -120,18 +131,19 @@ function draw() {
   }
   if (regularB == true) {
     //butterfly previous
+
     let wingChange = sin(frameCount * 0.03);
     let wingX = map(wingChange, -1, 1, -50, -20);
     let wingY = map(wingChange, -1, 1, -30, -50);
     let wingChange2 = cos(frameCount * 0.03);
     let wingX2 = map(wingChange, -1, 1, 50, 20);
     let wingY2 = map(wingChange, -1, 1, -30, -50);
-    let butterflyX1M = 2;
+    // let butterflyX1M = 2;
     let butterflyY1M = 2 * sin((1 / 2) * frameCount * 0.1);
     push();
     translate(butterflyX1, butterflyY1);
-    scale(0.3);
-    rotate(PI / 6);
+    scale(scaleC);
+    rotate(rotateC);
     beginShape();
     stroke(122, 75, 200);
     fill(122, 100, 225);
@@ -149,26 +161,26 @@ function draw() {
     vertex(+10, -20);
     endShape();
     pop();
-    // scaleC+=0.003
-    // if(scaleC>2){
-    //   scaleC+=0
-    // }
     butterflyX1 = butterflyX1 + butterflyX1M;
     butterflyY1 = butterflyY1 + butterflyY1M;
-    if (butterflyX1 > width) {
-      butterflyX1 = 0;
+   
+    if (butterflyX1 > width+30||butterflyX1<-30) {
+      butterflyX1M = - butterflyX1M
       butterflyY1 += 20;
+      rotateCDegree= -rotateCDegree
       if (butterflyY1 > height) {
         butterflyY1 = 50;
       }
     }
+   
   }
   //hint
   if (hintText1 == true) {
+    textSize(15)
     text(
       "DREAM or REALITY? Try to figure it out. Is there any strange thing going on? Find it out and click it!",
-      110,
-      80
+      40,
+      90
     );
   }
   if (hintText2 == true) {
@@ -239,10 +251,10 @@ function draw() {
       push();
       translate(butterflyX, butterflyY);
       scale(scaleC);
-      rotate(PI / 6);
+      rotate(rotateCD);
       beginShape();
-      stroke(122, random(0, 100), random(200, 255));
-      fill(122, random(0, 100), random(200, 255));
+      stroke(255, random(0, 100), random(200, 255));
+      fill(255, random(0, 100), random(200, 255));
       vertex(0, 0);
       quadraticVertex(wingX, wingY, -10, +30);
       vertex(-20, +60);
@@ -260,10 +272,12 @@ function draw() {
       if (butterflyX > width || butterflyX < 0) {
         Yspeed = Yspeed;
         Xspeed = -Xspeed;
+        rotateCDDegree= -rotateCDDegree
       }
       if (butterflyY > height || butterflyY < 0) {
         Xspeed = Xspeed;
         Yspeed = -Yspeed;
+        rotateCDDegree= rotateCDDegree+90
       }
       butterflyX = butterflyX + Xspeed;
       butterflyY = butterflyY + Yspeed;
@@ -303,17 +317,19 @@ function draw() {
         butterflyY = DreamlightY;
       }
     }
+    fill(252, 252, 252)
+    textSize(15)
     text(
       "cathch the dream butterfly and kill it before its dream power invades every corner of your mind!*use<wasd>",
-      50,
+      20,
       50
     );
     text(
       "The previous adventurer told me that sending it to where the magic is most powerful id the only way to kill it",
-      50,
+      20,
       70
     );
-    text("However, you can choose to stay or not.", 50, 90);
+    text("However, you can choose to stay or not.", 20, 90);
 
     if (keyIsPressed == true) {
       if (key === "w") {
