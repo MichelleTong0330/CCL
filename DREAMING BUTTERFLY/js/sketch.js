@@ -26,9 +26,10 @@ let ClickX = 600;
 let ClickY = 400;
 let hintText1 = true;
 let hintText2 = false;
+let scaleC = 0.3;
 function setup() {
-  let canvas = createCanvas(800,500);
-  canvas.parent("p5-canvas-container");
+  let cnv = createCanvas(800, 500);
+  cnv.parent("p5-canvas-container");
   colorMode(RGB, 255, 255, 255, 1);
   for (let iStars = 0; iStars < initialSizeOfArray; iStars++) {
     xArray[iStars] = random(0, width);
@@ -148,13 +149,17 @@ function draw() {
     vertex(+10, -20);
     endShape();
     pop();
+    // scaleC+=0.003
+    // if(scaleC>2){
+    //   scaleC+=0
+    // }
     butterflyX1 = butterflyX1 + butterflyX1M;
     butterflyY1 = butterflyY1 + butterflyY1M;
     if (butterflyX1 > width) {
       butterflyX1 = 0;
       butterflyY1 += 20;
-      if(butterflyY1>height){
-        butterflyY1 = 50
+      if (butterflyY1 > height) {
+        butterflyY1 = 50;
       }
     }
   }
@@ -222,11 +227,9 @@ function draw() {
     pop();
     anglesInDegrees = anglesInDegrees + 0.01;
     iArc += 0.5;
-    maxCirclerad += 0.5;
+    maxCirclerad += 2;
 
     if (movingstuff1 == true) {
-      let scaleCmode = cos(frameCount * 0.01);
-      let scaleC = map(scaleCmode, -1, 1, 0.3, 1);
       let wingChange = sin(frameCount * 0.03);
       let wingX = map(wingChange, -1, 1, -50, -20);
       let wingY = map(wingChange, -1, 1, -30, -50);
@@ -267,6 +270,21 @@ function draw() {
 
       pop();
     }
+    if (keyIsPressed == true) {
+      if (key === "w" || key === "a" || key === "s" || key === "d") {
+        //scaleC++
+        iArc -= 5.5;
+        maxCirclerad -= 5.5;
+        if (maxCirclerad < 10) {
+          maxCirclerad -= 0;
+        }
+        scaleC += 0.001;
+        if (scaleC > 0.5) {
+          scaleC += 0;
+        }
+      }
+    }
+
     if (movingstuff2 == true) {
       let lightFunction = sin(frameCount * 0.01);
       let lightRad = map(lightFunction, 0, 1, 5, 50);
@@ -274,17 +292,6 @@ function draw() {
       let lightRad2 = map(lightFunction2, 0, 1, 5, 60);
       fill(247, 19, 2);
       circle(DreamlightX, DreamlightY, lightRad);
-
-      text(
-        "cathch the dream butterfly and kill it before its dream power invades every corner of your mind!*use<wasd>",
-        50,
-        50
-      );
-      text(
-        "The previous adventurer told me that sending it to where the magic is most powerful id the only way to kill it",
-        50,
-        70
-      );
 
       if (
         DreamlightX < butterflyX + 20 &&
@@ -296,6 +303,18 @@ function draw() {
         butterflyY = DreamlightY;
       }
     }
+    text(
+      "cathch the dream butterfly and kill it before its dream power invades every corner of your mind!*use<wasd>",
+      50,
+      50
+    );
+    text(
+      "The previous adventurer told me that sending it to where the magic is most powerful id the only way to kill it",
+      50,
+      70
+    );
+    text("However, you can choose to stay or not.", 50, 90);
+
     if (keyIsPressed == true) {
       if (key === "w") {
         DreamlightY = DreamlightY - 1;
@@ -324,10 +343,12 @@ function draw() {
       hintText2 = true;
       regularB = false;
     }
-    if (maxCirclerad > 600) {
+    if (maxCirclerad > 4000) {
       movingstuff2 = false;
-      fill("red");
-      text("The forever dream comes...", 50, 50);
+      butterflyX = 400;
+      butterflyY = 250;
+    } else {
+      movingstuff2 = true;
     }
   }
 }
