@@ -54,18 +54,18 @@ class Egg{
     this.scaleFactor = random(0.3, 1);
     this.speedX = random(-1, 1);
     this.speedY = random(-1, 1);
-    this.showyolk = true 
+    this.showyolk = false 
   }
   update(){
     this.x += this.speedX;
     this.y += this.speedY;
     if(this.x < 0 || this.x > width){
       this.speedX = -this.speedX
-      this.showyolk=!this.showyolk
+      this.showyolk = !this.showyolk
     }
     if(this.y < 0 || this.y > height){
       this.speedY = -this.speedY
-      this.showyolk=!this.showyolk
+      this.showyolk = !this.showyolk
     }
   }
   display(){
@@ -78,7 +78,7 @@ class Egg{
       arc(0, 0, 80, 80,  0,  PI);
       arc(0, 0, 80, 130, PI, 2*PI);
 
-      if(this.showyolk=true){
+      if(this.showyolk==true){
       // egg yolk
       fill(255, 164, 0);
       circle(0, 0, 40)
