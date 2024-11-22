@@ -1,0 +1,103 @@
+html, body {
+  margin: 0;
+  padding: 10px;
+  background-color: #fdfceb;
+}
+
+canvas {
+  display: block;
+}
+
+.Header{
+  border-width: 10px;
+  border-style:double;
+  border-color: #d08a54;
+  padding: 30px;
+  text-align: center;
+  background: #c75639;
+  margin-bottom: 30px;
+}
+
+h1{
+  font-family:"Lucida Console", "Courier New", monospace;
+  
+  text-align: center;
+}
+
+#mainwrapper{
+  display: flex;
+  width: auto;
+  margin: auto;
+  max-width: 1200px;
+  background-color: #fdfceb;
+}
+
+.left-column{
+  flex: 2;
+  padding: 10px;
+}
+
+.right-column{
+  flex: 1;
+  padding: 20px;
+  background-color: #f7e8d8;
+  border-left: 2px solid #d08a54;
+}
+
+.hiddenmargin{
+  background-color:#fdfceb ;
+  border-style: solid none solid none;
+  border-color: #80461B;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.card1{
+  background-color:rgb(250, 186, 107);
+  padding: 20px;
+}
+
+
+.card2{
+  background-color:rgb(85, 203, 134);
+  padding: 20px;
+  border: solid none solid none  #80461B;
+}
+.card3{
+  background-color:#EAE8D4;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: solid none solid none  #80461B;
+}
+
+.imagescountainer{
+  display:flex;
+  justify-content: center;
+  flex: 3;
+}
+
+p1{
+  background-color: #737263;
+  margin: 10px;
+}
+
+
+#p5-canvas-container {
+  width: 800px;
+  position: relative;
+  border-style: inset;
+  border-width: 10px;
+  margin: 50px auto;
+  top: 20px;
+  
+}
+
+#footer {
+  text-align: center;
+  background-color: rgb(255, 234, 127);
+}
+
+#apple,#idea,#women{
+  width: 50px;
+  height: 50px;
+}
