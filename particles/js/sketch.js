@@ -1,12 +1,12 @@
 let fountain = [];
-let numFountain = 50;
+let numFountain = 20;
 let fountainY = 200;
 function setup() {
   let canvas = createCanvas(500, 400);
   canvas.parent("p5-canvas-container");
   
   
-  colorMode(HSB,360,100,100,100);
+  colorMode(RGB, 255, 255, 255, 1);
 }
 
 function draw() {
@@ -42,30 +42,14 @@ class Fountain{
     this.speedX = 0;
     this.transparency = 100;
     this.speedXR = random(-2,2);
-    this.hue = random(50);
+    this.hue = random(255);
     this.onCanvas = true;
 
   }
   update(){
-   
-
-    // let ychange = fountain[i].y-fountain[i-1].y
-    // this.speedY = map(ychange,0,100,-10,10)
-    this.speedX = lerp(0,this.speedXR,0.1)*50
-    this.transparency = map(Math.abs(this.speedX),0,10,0,100);
-  
-    // this.speedY = map(Math.abs(this.x-width/2),0,width/2,map(YMovement,0,1,-100,100),0)
-
+    this.speedX = lerp(0,this.speedXR,0.1)*80
+    this.transparency = map(Math.abs(this.speedX),0,10,0,50);
     this.x+=this.speedX;
-
-    // this.y = 200+this.speedY
-    // this.circleY+=this.speedY
-    // this.y+=this.speedY;
-    
-
-    // if(this.x>50||this.x<-50){
-    //   this.onCanvas=false
-    // }
     if(this.x > width||this.x<0){
       this.onCanvas = false;
     }
@@ -76,7 +60,7 @@ class Fountain{
     push();
     translate(this.x, this.y);
   
-      fill(this.hue, 255, 255,this.transparency);
+      fill(this.hue, 100, 200,this.transparency);
       noStroke();
       circle(0, 0, this.size);
     pop();
