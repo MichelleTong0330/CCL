@@ -1,0 +1,79 @@
+
+html, body {
+  margin: 0;
+  padding: 10px;
+  background-color: #fdfceb;
+}
+
+canvas {
+  display: block;
+}
+
+/* Header 样式 */
+.Header {
+  border-width: 10px;
+  border-style: double;
+  border-color: #d08a54;
+  padding: 30px;
+  text-align: center;
+  background: #c75639;
+  color: white;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 2.5em;
+  margin: 0;
+}
+
+#mainwrapper {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  max-width: 1200px;
+  background-color: #fdfceb;
+  border: 1px solid #d08a54;
+  padding: 20px;
+}
+
+/* Left Column */
+.left-column {
+  flex: 3;
+  padding: 20px;
+}
+
+/* Right Column */
+.right-column {
+  flex: 1;
+  padding: 20px;
+  background-color: #f7e8d8;
+  border-left: 2px solid #d08a54;
+}
+
+/* Cards */
+.card1, .card2, .card3 {
+  background-color: #fdfceb;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #d08a54;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card1 {
+  background-color: rgb(250, 186, 107);
+}
+
+.card2, .card3 {
+  background-color: #EAE8D4;
+}
+
+
+/* Footer */
+#footer {
+  text-align: center;
+  background-color: rgb(255, 234, 127);
+  padding: 10px;
+  margin-top: 20px;
+  border-top: 2px solid #d08a54;
+}

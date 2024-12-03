@@ -1,0 +1,32 @@
+html, body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 水平居中 */
+  justify-content: space-between;
+  height: 100vh; /* 占满视口高度 */
+  margin: 0; /* 移除默认边距 */
+  background-color: #f9f9f9; /* 可选背景颜色 */
+}
+
+.container {
+  display: flex;
+  justify-content: space-between; /* 两个长方形块左右对齐 */
+  width: 80%; /* 容器宽度 */
+  margin-top: 20px;
+}
+
+.box {
+  width: 45%; /* 每个长方形占宽度的45% */
+  height: 300px; /* 高度 */
+  border: 2px solid blue; /* 边框颜色和粗细 */
+  background-color: transparent; /* 内部为空 */
+}
+
+.footer {
+  width: 80%; /* 与容器等宽 */
+  height: 50px; /* 底部矩形的高度 */
+  border: 20px solid blue; /* 边框颜色和粗细 */
+  background-color: transparent; /* 内部为空 */
+  margin-top: auto; /* 将 footer 推到最底部 */
+}
+

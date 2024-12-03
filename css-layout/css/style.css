@@ -1,0 +1,49 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+h1{
+  color: brown;
+}
+
+p{
+background-color: beige;
+}
+.box{
+
+  /* div:container */
+  border-width: 1px;
+  border-style: dotted;
+  border-color: aquamarine;
+  margin: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: antiquewhite;
+}
+
+.box2{
+  /* related to the website */
+  position:absolute;
+  /* define its location */
+  left: 0px;
+  top: 0px;
+}
+
+.box3{
+  /* related to the broswer window, no relationship with the website. */
+  position:fixed;
+  right: 50px;
+  bottom: 50px;
+}
+
+.box4{
+  /* in relation to its own original position. Note: can be used in one or some words in the scentence, make it interesting. */
+  position:relative;
+  left: 10px;
+  top: -20px;
+}
