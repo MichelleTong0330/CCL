@@ -17,7 +17,7 @@ let toolBroad;
 let work1  = false;
 let work2 = false;
 let fountain = [];
-let numFountain = 20;
+let numFountain = 50;
 let fountainY = 200;
 let starfield;
 let hintbox;
@@ -62,27 +62,25 @@ function setup() {
 
 function draw() {
   background(106,168,79);
-  if (work1 && fountain.length < numFountain) {
-    for (let i = 0; i < numFountain; i++) {
-      fountain.push(new Fountain(width / 2, fountainY));
-    }
-  }
-
   if (work1 == true){
-  for(let i = 0; i < fountain.length; i++){
-    fountain[i].update();
-    fountain[i].display();
-  }
-  }
-
-  for(let i = fountain.length-1; i >=0; i--){
-    if(fountain[i].onCanvas == false){
-      fountain.splice(i, 1);
-
+    for(let i = 0; i < numFountain; i++){
+      fountain.push(new Fountain(width/2,fountainY));
     }
-  let YMovement = noise(frameCount*0.01);
-  fountainY = height/2+map(YMovement,0,1,-height/2,height/2);
- }
+  
+    for(let i = 0; i < fountain.length; i++){
+      fountain[i].update();
+      fountain[i].display();
+    }
+  
+    for(let i = fountain.length-1; i >=0; i--){
+      if(fountain[i].onCanvas == false){
+        fountain.splice(i, 1);
+  
+      }
+    let YMovement = noise(frameCount*0.01);
+    fountainY = height/2+map(YMovement,0,1,-height/2,height/2);
+  }
+}
  if(work2==true){
   starfield.update(); 
   starfield.display();
@@ -123,12 +121,12 @@ class Fountain{
   }
   
   display(){
-    fill(216,251,254);
-    rect(0,0,800,500);    
+     
     push();
+    // fill(216,251,254);
+    // rect(0,0,800,500);   
     translate(this.x, this.y);
-  
-      fill(this.hue, 100, 200,this.transparency);
+      fill( 100, 200,this.hue,this.transparency);
       noStroke();
       circle(0, 0, this.size);
     pop();
@@ -224,7 +222,7 @@ class Photo {
       let distance = dist(this.x, this.y, this.xPreFrame, this.yPreFrame);
 
       if(distance > 20){
-        this.transparency = max(0,this.transparency - 0.005);
+        this.transparency = max(0,this.transparency - 0.1);
       }
 
       if (distance > 0) {
