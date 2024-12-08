@@ -1,5 +1,7 @@
 let photo1;
 let cover1;
+let flash;
+let flashIMG;
 let picture;
 let pictureIMG;
 let camera;
@@ -22,6 +24,8 @@ let fountainY = 200;
 let starfield;
 let hintbox;
 let music;
+let flashtwinkle = false;
+
 
 
 function preload(){
@@ -29,8 +33,8 @@ function preload(){
   penIMG = loadImage("assets/pen.jpg");
   buttonSound = loadSound("sounds/click.mp3");
   // dragSound = loadSound("sounds/dragging.mp3")
-  music = loadSound("sounds/music.mp3")
-
+  music = loadSound("sounds/music.mp3");
+  flashIMG = loadImage("assets/flash-light-effect-free-png.webp");
 }
 
 function setup() {
@@ -45,6 +49,7 @@ function setup() {
   text1 = new Text();
   toolBroad = new ToolBroad();
   hintbox = new hintBox();
+  flash = new Flash(flashIMG);
   video = createCapture(VIDEO);
   video.size(160,120);
   video.hide();
@@ -56,6 +61,7 @@ function setup() {
   button2.mousePressed(peacesnap);
   music.loop();
   navigator.mediaDevices.enumerateDevices().then(gotDevices);
+
 }
   
 
@@ -92,8 +98,16 @@ function draw() {
   camera.display();
   camera.update();
   hintbox.display();
+  hintbox.update();
   toolBroad.display();
   toolBroad.update();
+  if (flashtwinkle == true){
+  flash.display();
+  }
+  // flash.update();
+
+  console.log(mouseX,mouseY);
+
 }
 
 class Fountain{
@@ -196,6 +210,7 @@ class Photo {
     this.dragPhoto = false;
     this.hint = true;
     this.hint1 = false;
+    this.scaleIndex = 1;
   }
 
   pressShutter(){
@@ -239,11 +254,16 @@ class Photo {
       }
 
       if (this.transparency == 0){
-        this.x = width/2
-        this.y = 400
+        this.x = width/2;
+        this.y = 450;
         this.dragPhoto = false;
-        // this.scaleIndex = max(1.3,this.scaleIndex+0.2)
       }
+
+      if(this.transparency == 0 &&this.x == width/2&&this.y == 450){
+        this.scaleIndex = 1.5;
+      }
+
+     
 
       
     }
@@ -254,7 +274,7 @@ class Photo {
   display() {
     push();
     translate(this.x, this.y);
-    // scale(this.scaleIndex);
+    scale(this.scaleIndex);
     stroke("black");
     strokeWeight(3);
     fill("white");
@@ -282,7 +302,9 @@ class Photo {
       fill(0);
       textStyle(BOLD);
       fill(31,108,176);
-      text('Great!Time to decorate!  ',hintbox.boxX+10,hintbox.boxY+40);
+      text('Great!Time to decorate!  ',hintbox.boxX+10,hintbox.boxY+10);
+      text('Choose a mood on the left side off canvas',hintbox.boxX+10,hintbox.boxY+25);
+      text('to click on.',hintbox.boxX+10,hintbox.boxY+40);
       text('The circles in the corner are clickable!',hintbox.boxX+10,hintbox.boxY+55);
       text('But you can only choose one.',hintbox.boxX+10,hintbox.boxY+70);
     }
@@ -291,14 +313,15 @@ class Photo {
       fill(31,108,176);
       textStyle(BOLD);
       textSize(13);
-      text('Choose a mood and click it!',hintbox.boxX+5,hintbox.boxY+20);
+      text('Photo time!',hintbox.boxX+5,hintbox.boxY+20);
+      text('Click on the red button on the camera!',hintbox.boxX+5,hintbox.boxY+35);
     }
 
     if(this.hint1 == true){
       fill(31,108,176);
       textSize(13);
       textStyle(BOLD);
-      text('Drag the red point to pull the polaroid out!',hintbox.boxX+5,hintbox.boxY+40);
+      text('Drag the small red point to pull the polaroid out!',hintbox.boxX+5,hintbox.boxY+40);
       text ('When u can not drag it anymore',hintbox.boxX+5,hintbox.boxY+55);
       text('click on the red dot',hintbox.boxX+5,hintbox.boxY+70);
     }
@@ -314,32 +337,27 @@ class Cover {
     this.dragCover = false;
     this.hint = false;
     this.hint1 = false;
+    this.pointX = 0;
+    this.pointY = 0;
   }
 
   update() {
     if (this.dragCover == true){
       this.y = mouseY;
     }
-    if (mouseIsPressed == true && mouseY > 220 && mouseY < height-20 && this.y<475) {
+    if (mouseIsPressed == true && mouseY > 220 && mouseY < height-10 && this.y<475) {
       this.dragCover = true;
       // dragSound = true;
     } else{
       this.dragCover = false;
     }
 
-
-    // if (this.dragCover == true&&photo1.dragPhoto == true)
-    //   {
-    //   dragSound.play();
-    // }else{
-    //   dragSound.stop();
-    // }
-
-    if (this.coverRemoved == true&&this.y>0) {
+    if (this.coverRemoved == true&&this.y>-20) {
       this.y = this.y - 2;
     }
 
     if(this.y<0){
+      this.dragCover = false;
       photo1.hint1 = false;
       this.hint1 = true;
     }
@@ -355,7 +373,7 @@ class Cover {
       quad(-97, -40, 97, -40, 80, -20, -80, -20);
       fill("red");
       noStroke();
-      circle(0, 0, 5);
+      circle(this.pointX, this.pointY, 5);
       pop();
     }
     if(this.hint1 == true){
@@ -366,6 +384,14 @@ class Cover {
     }
   }
 
+  // dragCheck(){
+  //   let dragDistance = dist(mouseX,mouseY,this.pointX,this.pointY);
+  //   if(dragDistance<10 && this.y<475){
+  //     this.dragCover = true;
+  //     camera.cameraRemove = true;
+  //   }
+  // }
+
 }
 
 
@@ -373,15 +399,25 @@ class Camera{
   constructor(cameraIMG){
    this.x = width/2;
    this.y = height/2;
+   this.shutterX = 315;
+   this.shutterY = 140;
    this.camera = cameraIMG;
-  //  this.cameraDisappear = false
+   this.takePhoto = false;
+   this.canTakePhoto = true;
+  //  this.cameraRemove = false;
   }
  
   update(){
-  if(mouseIsPressed==true&&mouseX<width&&mouseY<height){
-    this.y = this.y-3
-  }
-  }
+
+    if(this.cameraRemove == true){
+      this.y = this.y-5;
+      this.shutterY = this.shutterY-5;
+    }
+    if(cover1.dragCover==true&&mouseX<width&&mouseY<height){
+      this.cameraRemove = true;
+   }
+    }
+  
  
   display(){
    push();
@@ -392,6 +428,43 @@ class Camera{
      image(this.camera,-1095, -1700);
      pop();
    pop();
+   noStroke();
+   fill('red');
+   circle(this.shutterX,this.shutterY,30);
+  }
+
+  shutterCheck(){
+    let shutterRange = dist(mouseX,mouseY,this.shutterX,this.shutterY);
+    if(shutterRange < 15){
+      photo1.pressShutter();
+      flashtwinkle = true;
+      buttonSound.play();
+      photo1.hint = false;
+      photo1.hint1 = true;
+      photo1.y += 20;
+      cover1.y += 20;
+    }
+  }
+}
+
+class Flash{
+  constructor(flashIMG){
+    this.flashX = 310;
+    this.flashY = 90;
+    this.flash = flashIMG;
+  }
+
+  // update(){
+  //   if(mouseIsPressed == true){
+
+  //   }
+  // }
+  display(){
+    push();
+    translate(this.flashX,this.flashY);
+    scale(0.8);
+    image(this.flash,-100,-100);
+    pop();
   }
 }
 
@@ -471,7 +544,7 @@ class ToolBroad {
     fill(31,108,176);
     textSize(13);
     textStyle(BOLD);
-    text('Wnna save it?Click the square!',hintbox.boxX+10,hintbox.boxY+25);
+    text('Wnna save it?Click the square!',hintbox.boxX+10,hintbox.boxY-15);
     pop();
     }
   }
@@ -514,18 +587,33 @@ class ToolBroad {
   }
 
   shotCheck(){
-    let switchDistance3 = dist(mouseX, mouseY, this.animationSwitchX+20, this.animationSwitchY+15);
-    if(switchDistance3 < 5){
-      saveCanvas('digitalPolaroid.jpg');
+    let switchDistance3 = dist(mouseX, mouseY, this.animationSwitchX+20, this.animationSwitchY+25);
+    if(switchDistance3 < 15){
+      console.log("pos: ", hintbox.boxX, hintbox.boxRemove);
+      hintbox.boxRemove = true;
     }
+    
+    
   }
-  
 }
 
 class hintBox{
   constructor(){
     this.boxX = 10;
     this.boxY = 300;
+    this.boxRemove = false;
+    this.pictureTaken = false;
+  }
+
+  update(){
+    if(this.boxRemove == true){
+      this.boxX = this.boxX - 5;
+    }
+    if (this.boxX < -290 && this.pictureTaken == false) {
+      saveCanvas('digitalPolaroid.jpg');
+      this.pictureTaken = true
+    }
+
   }
   display(){
     push();
@@ -553,9 +641,22 @@ function mousePressed() {
   }
 
   if (cover1.y < 0) {
+    cover1.dragCover = false;
     cover1.cover = false;
     photo1.canBeshaked = true;
   }
+
+  // if(mouseX > 300 && mouseX < 330&& mouseY > 125&& mouseY<155){
+  //   this.takePhoto = true;
+  // }
+
+  // if(this.takePhoto == true){
+  //   photo1.pressShutter();
+  // }
+
+  // cover1.dragCheck();
+
+  camera.shutterCheck();
 
   toolBroad.starsCheck();
   toolBroad.positionCheck();
@@ -571,36 +672,22 @@ function mouseReleased() {
     for (let i = 0; i < toolBroad.emojis.length; i++) {
       toolBroad.isDragging[i] = false;
     }
+    cover1.dragCover = false;
+
+    flashtwinkle = false;
   
 }
 
 function happysnap(){
-  photo1.hint = false;
-  photo1.hint1 = true;
-  buttonSound.play();  
-  photo1.y += 20;  
-  cover1.y += 20;
   tint(255,116,194)
-  photo1.pressShutter();
 }
 
 function sadsnap(){
-  photo1.hint = false;
-  photo1.hint1 = true;
-  buttonSound.play();
-  photo1.y += 20;  
-  cover1.y += 20;
   tint(111,168,220);
-  photo1.pressShutter();
 }
+
 function peacesnap(){
-  photo1.hint = false;
-  photo1.hint1 = true;
-  buttonSound.play();
-  photo1.y += 20;  
-  cover1.y += 20;
   tint(182,215,168);
-  photo1.pressShutter();
 }
 function gotDevices(deviceInfos) {
   for (let i = 0; i < deviceInfos.length; ++i) {

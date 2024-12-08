@@ -1,0 +1,139 @@
+html, body {
+  margin: 0;
+  padding: 20px;
+  background-image: url('../assets/Album.png');
+  background-color: antiquewhite;
+  /* background-repeat: no-repeat; */
+  background-attachment: fixed;
+  background-position: center; 
+  background-size: 80%;
+}
+
+canvas {
+  display: block;
+}
+
+.wapper{
+  display: flex;
+  flex-wrap:wrap;
+  width: 100%;
+  margin: auto;
+  max-width: 100%;
+}
+.container {
+  position: absolute;
+  left:200px;
+  top:60px;
+  width: 150px;
+}
+
+.container2 {
+  position: absolute;
+  left:400px;
+  top:60px;
+  width: 200px;
+}
+
+.container3 {
+  position: absolute;
+  left:700px;
+  top:60px;
+  width: 200px;
+}
+
+.container4 {
+  position: absolute;
+  left:950px;
+  top:60px;
+  width: 200px;
+}
+
+.container5 {
+  position: absolute;
+  left:200px;
+  top: 400px;
+  width: 200px;
+}
+
+.container6 {
+  position: absolute;
+  left:425px;
+  top:400px;
+  width: 200px;
+}
+
+.container7 {
+  position: absolute;
+  left:700px;
+  top:300px;
+  width: 200px;
+}
+
+.container8 {
+  position: absolute;
+  left:950px;
+  top:350px;
+  width: 200px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #008CBA;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+.container2:hover .overlay {
+  opacity: 1;
+}
+
+.container3:hover .overlay {
+  opacity: 1;
+}
+.container4:hover .overlay {
+  opacity: 1;
+}
+.container5:hover .overlay {
+  opacity: 1;
+}
+.container6:hover .overlay {
+  opacity: 1;
+}
+.container7:hover .overlay {
+  opacity: 1;
+}
+.container8:hover .overlay {
+  opacity: 1;
+}
+
+
+
+.text {
+  color: white;
+  font-size: 15px;
+  font-family: 'Times New Roman', Times, serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}

@@ -24,19 +24,79 @@ h1{
   text-align: center;
 }
 
+h2{
+  font-family:Garamond,Georgia,Serif;
+}
+
+p1{
+  font-family:Garamond,Georgia,Serif;
+  margin: 10px;
+}
+
+p2{
+  font-family:Garamond,Georgia,Serif;
+  color: #deb224b4;
+  font-size: 30px;
+}
+
+
+
+p{
+  font-family:Garamond,Georgia,Serif;
+  text-indent: 25px;
+  line-height: 1.2;
+  word-spacing: 8px;
+  letter-spacing: 1px
+}
+
+p3{
+  font-size: 15px;
+  font-family:Garamond,Georgia,Serif;
+}
+
+a{
+  font-size:30px;
+}
+
+a:visited {
+  color: rgba(181, 149, 22, 0.794);
+}
+
+a:hover {
+  color: rgba(136, 187, 100, 0.839);
+}
+
+/* img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 500px;
+} */
+
 #mainwrapper{
   display: flex;
   flex-wrap:wrap;
   width: 100%;
   margin: auto;
-  max-width: 1200px;
+  max-width: 100%;
   background-color: #fdfceb;
 }
 
 .left-column{
   flex: 2;
+
+  height:100%;
   padding: 10px;
   min-width:300px;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.middle-column{
+  flex: 2;
+  padding: 10px;
+  max-width: 350px;
+  min-width:200px;
   box-sizing: border-box;
 }
 
@@ -55,6 +115,8 @@ h1{
   border-color: #80461B;
   padding-top: 20px;
   padding-bottom: 20px;
+  max-width: 500px;
+
 }
 
 .card1{
@@ -75,15 +137,16 @@ h1{
   border: solid none solid none  #80461B;
 }
 
+.card4{
+  background-color:rgba(222, 205, 71, 0.482);
+  padding: 20px;
+  border: solid none solid none  #80461B;
+}
+
 .imagescountainer{
   display:flex;
   justify-content: center;
   flex: 3;
-}
-
-p1{
-  background-color: #737263;
-  margin: 10px;
 }
 
 
@@ -102,7 +165,3 @@ p1{
   background-color: rgb(255, 234, 127);
 }
 
-#apple,#idea,#women{
-  width: 50px;
-  height: 50px;
-}

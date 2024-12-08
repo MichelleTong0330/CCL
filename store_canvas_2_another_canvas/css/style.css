@@ -1,0 +1,26 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* canvas {
+  display: block;
+} */
+#p5-canvases {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#p5-canvas-container {
+  /* display: block; */
+  visibility: visible;
+  margin: auto;
+}
+
+#test-p5-canvas-container {
+  /* display: none; */
+  visibility: hidden;
+  margin: auto;
+}
