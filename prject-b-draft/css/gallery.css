@@ -1,79 +1,92 @@
 html, body {
   margin: 0;
   padding: 20px;
-  background-image: url('../assets/Album.png');
   background-color: antiquewhite;
-  /* background-repeat: no-repeat; */
+  /* background-image: url('../assets/Album.png');
+ 
+  /* background-repeat: no-repeat; 
   background-attachment: fixed;
   background-position: center; 
-  background-size: 80%;
+  background-size: 80%; */ 
 }
 
 canvas {
   display: block;
 }
 
-.wapper{
-  display: flex;
-  flex-wrap:wrap;
-  width: 100%;
-  margin: auto;
-  max-width: 100%;
+a{
+  font-family: 'Times New Roman', Times, serif;
+  font-size:20px;
+}
+
+a:visited {
+  color: rgba(181, 149, 22, 0.794);
+}
+
+a:hover {
+  color: rgba(136, 187, 100, 0.839);
+}
+
+.Album{
+  position:relative;
+  width:100%;
 }
 .container {
   position: absolute;
-  left:200px;
-  top:60px;
-  width: 150px;
+  left:10%;
+  top:10%;
+  width: 15%;
 }
 
 .container2 {
   position: absolute;
-  left:400px;
-  top:60px;
-  width: 200px;
+  left:30%;
+  top:10%;
+  width:18%;
 }
 
 .container3 {
+  display: flex;
   position: absolute;
-  left:700px;
-  top:60px;
-  width: 200px;
+  left:55%;
+  top:10%;
+  width: 18%;
 }
 
 .container4 {
+  display: flex;
   position: absolute;
-  left:950px;
-  top:60px;
-  width: 200px;
+  left:75%;
+  top:10%;
+  width: 18%;
 }
 
 .container5 {
   position: absolute;
-  left:200px;
-  top: 400px;
-  width: 200px;
+  left:10%;
+  top: 65%;
+  width: 18%;
 }
 
 .container6 {
   position: absolute;
-  left:425px;
-  top:400px;
-  width: 200px;
+  left:30%;
+  top:65%;
+  width: 18%;
 }
 
 .container7 {
   position: absolute;
-  left:700px;
-  top:300px;
-  width: 200px;
+  left:55%;
+  top:45%;
+  width: 18%;
 }
 
 .container8 {
   position: absolute;
-  left:950px;
-  top:350px;
-  width: 200px;
+  left:75%;
+  top:50%;
+  width: 18%;
 }
 
 .image {

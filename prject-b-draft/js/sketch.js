@@ -30,7 +30,6 @@ let flashtwinkle = false;
 
 function preload(){
   cameraIMG =  loadImage("assets/camera.webp");
-  penIMG = loadImage("assets/pen.jpg");
   buttonSound = loadSound("sounds/click.mp3");
   // dragSound = loadSound("sounds/dragging.mp3")
   music = loadSound("sounds/music.mp3");
@@ -50,9 +49,8 @@ function setup() {
   toolBroad = new ToolBroad();
   hintbox = new hintBox();
   flash = new Flash(flashIMG);
-  video = createCapture(VIDEO);
-  video.size(160,120);
-  video.hide();
+  console.log(cameraSelector)
+  
   button = createButton('happy');
   button1 = createButton('sad');
   button2 = createButton('peace');
@@ -60,6 +58,9 @@ function setup() {
   button1.mousePressed(sadsnap);
   button2.mousePressed(peacesnap);
   music.loop();
+
+  // ASK the browser which "devices" (cameras) are accessible (e.g. "in-built camera" or "usb webcam")
+  // once the browser has gathered information about devices, it will call the "gotDevices" funtion at the bottom
   navigator.mediaDevices.enumerateDevices().then(gotDevices);
 
 }
@@ -339,6 +340,7 @@ class Cover {
     this.hint1 = false;
     this.pointX = 0;
     this.pointY = 0;
+    
   }
 
   update() {
@@ -353,10 +355,10 @@ class Cover {
     }
 
     if (this.coverRemoved == true&&this.y>-20) {
-      this.y = this.y - 2;
+      this.y = mouseY;
     }
 
-    if(this.y<0){
+    if(this.y<0||this.y>height){
       this.dragCover = false;
       photo1.hint1 = false;
       this.hint1 = true;
@@ -371,6 +373,7 @@ class Cover {
       fill("rgb(54,52,52)");
       rect(-100, -220, 200, 180);
       quad(-97, -40, 97, -40, 80, -20, -80, -20);
+      rect(-10,-20,20,25)
       fill("red");
       noStroke();
       circle(this.pointX, this.pointY, 5);
@@ -408,7 +411,6 @@ class Camera{
   }
  
   update(){
-
     if(this.cameraRemove == true){
       this.y = this.y-5;
       this.shutterY = this.shutterY-5;
@@ -416,7 +418,18 @@ class Camera{
     if(cover1.dragCover==true&&mouseX<width&&mouseY<height){
       this.cameraRemove = true;
    }
-    }
+ }
+
+//  cemaraCheck(){
+//   if(this.cameraRemove == true){
+//     this.y = this.y-5;
+//     this.shutterY = this.shutterY-5;
+//   }
+//   if(cover1.dragCover==true&&mouseX<width&&mouseY<height){
+//     this.cameraRemove = true;
+//  }
+//  }
+
   
  
   display(){
@@ -443,6 +456,7 @@ class Camera{
       photo1.hint1 = true;
       photo1.y += 20;
       cover1.y += 20;
+      // this.cemaraCheck();
     }
   }
 }
@@ -690,15 +704,33 @@ function peacesnap(){
   tint(182,215,168);
 }
 function gotDevices(deviceInfos) {
-  for (let i = 0; i < deviceInfos.length; ++i) {
-    const deviceInfo = deviceInfos[i];
-    if (deviceInfo.label === "HD Pro Webcam C920 (046d:082d)") {
-      console.log(deviceInfo);
-      cameraSelector.video = deviceInfo; 
-      break;
-    }
+  // browser supplied a list of camera accessible.
+  // the list is in the variable deviceInfos
+
+  // check if the usb webcam is attach:
+  let idx = deviceInfos.findIndex(d=>d.label==="HD Pro Webcam C920 (046d:082d)");
+  // if the webcam was found, idx will have a value that pioints
+  // to the webcam information in the deviceInfos array
+
+  // if it wasn't found, the idx will be "-1"
+ 
+ 
+  // if the usb webcam is NOT attach, use the default camera
+  if(idx == -1){
+    console.log("using default camera")
+    video = createCapture(VIDEO); // <-- DEFAULT camera is called "VIDEO"
+    video.size(160,120);
+    video.hide();
+  }else{
+    // but if we do find the usb webcam, us that one instead
+    cameraSelector.video = deviceInfos[idx]
+    video = createCapture(cameraSelector); // <-- cameraSelector has a value IF a usb webcam was found
+    console.log("using webcam")
+    video.size(160,120);
+    video.hide();
   }
 
+  
   
 }
 
