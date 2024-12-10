@@ -238,7 +238,7 @@ class Photo {
       let distance = dist(this.x, this.y, this.xPreFrame, this.yPreFrame);
 
       if(distance > 20){
-        this.transparency = max(0,this.transparency - 0.001);
+        this.transparency = max(0,this.transparency - 0.01);
       }
 
       if (distance > 0) {
