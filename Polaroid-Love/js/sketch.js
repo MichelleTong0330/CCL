@@ -13,7 +13,6 @@ let button1;
 let button2;
 let text1;
 let buttonSound;
-// let dragSound;
 let isDragging = false;
 let toolBroad;
 let work1  = false;
@@ -87,7 +86,7 @@ function draw() {
     let YMovement = noise(frameCount*0.01);
     fountainY = height/2+map(YMovement,0,1,-height/2,height/2);
   }
-}
+ }
  if(work2==true){
   starfield.update(); 
   starfield.display();
@@ -105,10 +104,6 @@ function draw() {
   if (flashtwinkle == true){
   flash.display();
   }
-  // flash.update();
-
-  console.log(mouseX,mouseY);
-
 }
 
 class Fountain{
@@ -245,8 +240,6 @@ class Photo {
         this.xPreFrame = this.x;
         this.yPreFrame = this.y;
       }
-
-      console.log(this.transparency)
 
       if (distance < 0.00001 && this.transparency > 0&&this.transparency < 9) {
         this.showText = true; 
@@ -387,14 +380,6 @@ class Cover {
     }
   }
 
-  // dragCheck(){
-  //   let dragDistance = dist(mouseX,mouseY,this.pointX,this.pointY);
-  //   if(dragDistance<10 && this.y<475){
-  //     this.dragCover = true;
-  //     camera.cameraRemove = true;
-  //   }
-  // }
-
 }
 
 
@@ -420,15 +405,7 @@ class Camera{
    }
  }
 
-//  cemaraCheck(){
-//   if(this.cameraRemove == true){
-//     this.y = this.y-5;
-//     this.shutterY = this.shutterY-5;
-//   }
-//   if(cover1.dragCover==true&&mouseX<width&&mouseY<height){
-//     this.cameraRemove = true;
-//  }
-//  }
+
 
   
  
@@ -606,8 +583,6 @@ class ToolBroad {
       console.log("pos: ", hintbox.boxX, hintbox.boxRemove);
       hintbox.boxRemove = true;
     }
-    
-    
   }
 }
 
@@ -660,15 +635,6 @@ function mousePressed() {
     photo1.canBeshaked = true;
   }
 
-  // if(mouseX > 300 && mouseX < 330&& mouseY > 125&& mouseY<155){
-  //   this.takePhoto = true;
-  // }
-
-  // if(this.takePhoto == true){
-  //   photo1.pressShutter();
-  // }
-
-  // cover1.dragCheck();
 
   camera.shutterCheck();
 
